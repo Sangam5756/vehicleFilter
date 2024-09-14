@@ -79,7 +79,6 @@ const VehicleTable: React.FC = () => {
     // @ts-ignore
     const matchesCategory = selectedSpecificCategory? vehicle[category]?.toLowerCase() === selectedSpecificCategory?.toLowerCase(): true;
 
-    // Search input should check all fields
     const matchesSearchTerm =
       vehicle.Name?.toLowerCase().includes(searchValue) ||
       vehicle.Model?.toLowerCase().includes(searchValue) ||
@@ -115,7 +114,7 @@ const VehicleTable: React.FC = () => {
     },
     {
       title: "Manufacturing Date",
-      dataIndex: "ManufacturingDate",
+      dataIndex: "Manufacturing Date",
       key: "ManufacturingDate",
       render: (date: string) => new Date(date).toLocaleDateString(),
     },
