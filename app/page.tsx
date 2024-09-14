@@ -132,15 +132,16 @@ const VehicleTable: React.FC = () => {
       {loading ? (
         <Shimmer />
       ) : (
-        <div>
+        <div  >
     
-          <Select
+        <div className="w-[650px] lg:w-full ">
+        <Select
             value={category}
             onChange={(value) => (
               setCategory(value)
               
             )}
-            className="mb-4 w-full"
+            className="mb-4  w-full"
             placeholder="Select Category"
           >
             <Select.Option value="All">All</Select.Option>
@@ -155,7 +156,7 @@ const VehicleTable: React.FC = () => {
             <Select
               value={selectedSpecificCategory}
               onChange={(value) => setSelectedSpecificCategory(value)}
-              className="mb-4 w-full"
+              className="mb-4  bg-slate-200 w-full"
               placeholder={`Select ${category}`}
             >
               {specificCategory.map((option, index) => (
@@ -171,15 +172,16 @@ const VehicleTable: React.FC = () => {
             placeholder={`Search across all fields`}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="mb-4 w-full"
+            className="mb-4  bg-slate-200 w-full"
           />
 
+        </div>
          
           <Table
             columns={columns}
             dataSource={filteredData}
             rowKey="Name"
-            className="border border-gray-200  rounded-md p-2 mx-2"
+            className="rounded-md p-2 mx-2"
           />
         </div>
       )}
