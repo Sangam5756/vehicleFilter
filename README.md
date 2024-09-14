@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vehicle Data Filtering App
 
-## Getting Started
+## Description
 
-First, run the development server:
+This application is designed to filter and search vehicle data. Users can select a specific category (e.g., "Name", "Model", "Type", etc.) and optionally a sub-category, then search for relevant vehicles based on those inputs. The search feature is flexible and searches across multiple fields, allowing users to find vehicles easily.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Category Selection**: Users can select a category (e.g., "Name", "Model", "Type", etc.) and search within it.
+- **Sub-Category Filtering**: Based on the selected category, users can select specific types to further refine the search.
+- **Search Across Multiple Fields**: The search input searches across fields like `Name`, `Model`, `Type`, `Manufacturer`, and `Seating`.
+- **Real-Time Data Filtering**: The application filters the vehicle data in real-time as the user inputs a search term or selects a category.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js & Reactjs**: Frontend framework used to build the interactive UI.
+- **Redux**: For managing the application's state, including vehicle data and loading states.
+- **Ant Design**: For UI components like tables and dropdowns.
+- **TypeScript**: Ensures type safety throughout the application.
+- **TailwindCss**: used for improve the user experience and better styling.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To run this project locally, follow these steps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/Sangam5756/InternTask.git
+    ```
 
-## Deploy on Vercel
+2. Navigate into the project directory:
+    ```bash
+    cd InternTask
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+The app will be available at `http://localhost:3000`. || `http://vehicle5756.vercel.app`
+
+## How to Use
+
+### 1. Category Selection
+
+- Select a category from the dropdown (e.g., `Name`, `Model`, `Type`, `Manufacturer`, etc.). This will define the field in which you'd like to search or filter data.
+
+### 2. Sub-Category Selection (Optional)
+
+- After selecting a category, if it's relevant (like `Type` or `Model`), a second dropdown will appear to allow you to filter by a specific value within that category.
+- For example, if you select `Type`, you'll be able to choose between types like `Sedan`, `Hatchback`, `SUV`, etc.
+
+### 3. Search Input
+
+- The search input allows you to filter vehicles by typing in a search term.
+- The app performs a **global search across multiple fields** (i.e., `Name`, `Model`, `Type`, `Manufacturer`, and `Seating`). This means that regardless of which category is selected, the app will still search across all fields for the term you provide.
+- As you type, the table updates in real time, displaying only the matching vehicles.
+
+
+
+
+## Code Structure & Approach
+
+### Main Components
+
+1. **VehicleTable.tsx**
+    - Fetches data from an external API and stores it in the Redux store.
+    - Implements real-time search and filtering based on user input.
+    - Uses Ant Design's table and dropdown components for easy UI integration.
+
+2. **Search Logic**
+    - The search term is converted to lowercase for case-insensitive matching.
+    - The search term is checked across multiple fields (`Name`, `Model`, `Type`, `Manufacturer`, and `Seating`).
+    - Filtering is done in two layers:
+        - **Category Filtering**: Filters based on the selected category (e.g., `Type`, `Model`).
+        - **Search Term Filtering**: Filters based on the search term across all relevant fields.
+
+3. **State Management**
+    - The app uses Redux to store and manage the fetched vehicle data and the loading state.
+
