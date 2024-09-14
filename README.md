@@ -4,6 +4,7 @@
 
 This application is designed to filter and search vehicle data. Users can select a specific category (e.g., "Name", "Model", "Type", etc.) and optionally a sub-category, then search for relevant vehicles based on those inputs. The search feature is flexible and searches across multiple fields, allowing users to find vehicles easily.
 
+
 ## Features
 
 - **Category Selection**: Users can select a category (e.g., "Name", "Model", "Type", etc.) and search within it.
