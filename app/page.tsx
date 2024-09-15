@@ -10,19 +10,14 @@ import { setData, setLoading } from "./store/vehicleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { Vehicle } from "./constants/TypesVehicle";
 
-
-
 const VehicleTable: React.FC = () => {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state: RootState) => state.vehicle);
-
-
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [category, setCategory] = useState<String>("All");
-  const [selectedSpecificCategory, setSelectedSpecificCategory] =useState<string>("");
-
+  const [selectedSpecificCategory, setSelectedSpecificCategory] =
+    useState<string>("");
   const [specificCategory, setSpecificCategory] = useState<string[]>([]);
-
   const [sorter, setSorter] = useState<{
     field: string;
     order: "ascend" | "descend" | null;
@@ -33,9 +28,8 @@ const VehicleTable: React.FC = () => {
     setCategory("All");
     setSelectedSpecificCategory("");
     setSpecificCategory([]);
-    setSorter(null); 
+    setSorter(null);
   };
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +76,6 @@ const VehicleTable: React.FC = () => {
     }
   }, [category, data]);
 
-  
   const filteredData = data.filter((vehicle: Vehicle) => {
     const searchValue = searchTerm?.toLowerCase();
     const matchesCategory = selectedSpecificCategory
@@ -167,8 +160,12 @@ const VehicleTable: React.FC = () => {
         new Date(b["Manufacturing Date"]).getTime(),
       sortOrder: sorter?.field === "Manufacturing Date" ? sorter.order : null,
     },
+
     {
-      title: <Tooltip title="Seating">Seating</Tooltip>,
+      title: (
+        <Tooltip title="Seating">
+          Seating <InfoCircleOutlined /> </Tooltip>
+      ),
       dataIndex: "Seating",
       key: "Seating",
       sorter: (a: Vehicle, b: Vehicle) => a.Seating - b.Seating,
@@ -184,22 +181,18 @@ const VehicleTable: React.FC = () => {
     </Menu>
   );
 
-
-
-
-
   return (
     <div className="p-4">
       {loading ? (
         <Shimmer />
       ) : (
         <div>
-          <div className="w-[650px] lg:w-full gap-2 flex duration-150 ">
+          <div className="w-[650px] lg:w-full gap-2 flex  ">
             <div>
               <Select
                 value={category}
                 onChange={(value) => setCategory(value)}
-                className="mb-4 w-20 "
+                className="mb-4 w-20"
                 placeholder="Select Category"
               >
                 <Select.Option value="All">All</Select.Option>
@@ -213,7 +206,7 @@ const VehicleTable: React.FC = () => {
             <div>
               {category && category !== "All" && (
                 <Select
-                  value={selectedSpecificCategory || "Select specific Category"}
+                  value={selectedSpecificCategory || "Select Specific Category"}
                   onChange={(value) => setSelectedSpecificCategory(value)}
                   className="mb-4 bg-slate-200 w-full"
                   placeholder={`Select ${category}`}
@@ -257,5 +250,6 @@ const VehicleTable: React.FC = () => {
     </div>
   );
 };
+
 
 export default VehicleTable;
