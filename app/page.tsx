@@ -10,26 +10,30 @@ import { setData, setLoading } from "./store/vehicleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { Vehicle } from "./constants/TypesVehicle";
 
+
+
 const VehicleTable: React.FC = () => {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state: RootState) => state.vehicle);
+
+
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [category, setCategory] = useState<String>("All");
-  const [selectedSpecificCategory, setSelectedSpecificCategory] =
-    useState<string>("");
+  const [selectedSpecificCategory, setSelectedSpecificCategory] =useState<string>("");
+
   const [specificCategory, setSpecificCategory] = useState<string[]>([]);
-  const [sorter, setSorter] = useState<{
-    field: string;
-    order: "ascend" | "descend" | null;
-  } | null>(null);
+
+  const [sorter, setSorter] = useState<{field: string;order: "ascend" | "descend" | null;} | null>(null);
 
   const clearFilters = () => {
     setSearchTerm("");
     setCategory("All");
     setSelectedSpecificCategory("");
     setSpecificCategory([]);
-    setSorter(null);
+    setSorter(null); 
   };
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,23 +80,25 @@ const VehicleTable: React.FC = () => {
     }
   }, [category, data]);
 
+  
   const filteredData = data.filter((vehicle: Vehicle) => {
     const searchValue = searchTerm?.toLowerCase();
+    
     const matchesCategory = selectedSpecificCategory
-      ? vehicle[category]?.toLowerCase() ===
+      ? vehicle[category as keyof Vehicle]?.toString().toLowerCase() ===
         selectedSpecificCategory?.toLowerCase()
       : true;
-
+  
     const matchesSearchTerm =
       vehicle.Name?.toLowerCase().includes(searchValue) ||
       vehicle.Model?.toLowerCase().includes(searchValue) ||
       vehicle.Type?.toLowerCase().includes(searchValue) ||
       vehicle.Manufacturer?.toLowerCase().includes(searchValue) ||
       vehicle.Seating?.toString().includes(searchTerm);
-
+  
     return matchesCategory && matchesSearchTerm;
   });
-
+  
   const handleChange = (pagination: any, filters: any, sorter: any) => {
     setSorter({
       field: sorter.field,
@@ -160,12 +166,8 @@ const VehicleTable: React.FC = () => {
         new Date(b["Manufacturing Date"]).getTime(),
       sortOrder: sorter?.field === "Manufacturing Date" ? sorter.order : null,
     },
-
     {
-      title: (
-        <Tooltip title="Seating">
-          Seating <InfoCircleOutlined /> </Tooltip>
-      ),
+      title: <Tooltip title="Seating">Seating</Tooltip>,
       dataIndex: "Seating",
       key: "Seating",
       sorter: (a: Vehicle, b: Vehicle) => a.Seating - b.Seating,
@@ -181,6 +183,10 @@ const VehicleTable: React.FC = () => {
     </Menu>
   );
 
+
+
+
+
   return (
     <div className="p-4">
       {loading ? (
@@ -188,7 +194,8 @@ const VehicleTable: React.FC = () => {
       ) : (
         <div>
           <div className="w-[650px] lg:w-full gap-2 flex  ">
-            <div>
+
+            <div className="w-[]">
               <Select
                 value={category}
                 onChange={(value) => setCategory(value)}
@@ -238,6 +245,7 @@ const VehicleTable: React.FC = () => {
             </div>
           </div>
 
+
           <Table
             columns={columns}
             dataSource={filteredData}
@@ -250,6 +258,5 @@ const VehicleTable: React.FC = () => {
     </div>
   );
 };
-
 
 export default VehicleTable;
