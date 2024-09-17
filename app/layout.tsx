@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ReduxProvider from "./ReduxProvider";
-
+import Header from "./components/Header";
 
 export const metadata: Metadata = {
   title: "Vehicle Filter",
@@ -18,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReduxProvider>
+          <Header/>
           {children}
         </ReduxProvider>
       </body>
