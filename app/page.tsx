@@ -82,6 +82,7 @@ const VehicleTable: React.FC = () => {
 
   
   const filteredData = data.filter((vehicle: Vehicle) => {
+    
     const searchValue = searchTerm?.toLowerCase();
     
     const matchesCategory = selectedSpecificCategory
@@ -99,12 +100,19 @@ const VehicleTable: React.FC = () => {
     return matchesCategory && matchesSearchTerm;
   });
   
+
+
+  
   const handleChange = (pagination: any, filters: any, sorter: any) => {
     setSorter({
       field: sorter.field,
       order: sorter.order,
     });
   };
+
+
+
+
 
   const columns: ColumnsType<Vehicle> = [
     {
@@ -198,11 +206,17 @@ const VehicleTable: React.FC = () => {
             <div className="w-[]">
               <Select
                 value={category}
-                onChange={(value) => setCategory(value)}
+                onChange={(value) => {
+                  setCategory(value)
+                  if(value ==="All"){
+                    clearFilters();
+                  }
+                }}
                 className="mb-4 w-20"
                 placeholder="Select Category"
+                
               >
-                <Select.Option value="All">All</Select.Option>
+                <Select.Option  value="All">All</Select.Option>
                 <Select.Option value="Name">Name</Select.Option>
                 <Select.Option value="Model">Model</Select.Option>
                 <Select.Option value="Type">Type</Select.Option>
